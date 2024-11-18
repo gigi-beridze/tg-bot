@@ -1,0 +1,1 @@
+export const SHOW_RESULT_DESCRIPTION = "რაღაცა ტექსტი რომელსაც ოდესმე <b>გიორგი</b> შეიყვანს.";
