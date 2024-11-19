@@ -1,5 +1,4 @@
 "use strict";
-// src/data/lowDataJson.ts
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.lowDataJson = void 0;
 exports.lowDataJson = [

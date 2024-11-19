@@ -34,9 +34,25 @@ const setCallbacks = (bot: Bot) => {
         }
 
         const { message, menu } = buildStaticStockList();
-        if (callbackQuery.message.text !== message || !areKeyboardsEqual(callbackQuery.message.reply_markup, menu)) {
-            await ctx.editMessageText(message, { parse_mode: "HTML", reply_markup: menu });
+        const currentText = callbackQuery.message.text;
+        const currentReplyMarkup = callbackQuery.message.reply_markup;
+
+        if (
+            currentText === message &&
+            areKeyboardsEqual(currentReplyMarkup?.inline_keyboard, menu.inline_keyboard)
+        ) {
+            return;
         }
+
+        try {
+            await ctx.editMessageText(message, {
+                parse_mode: "HTML",
+                reply_markup: menu,
+            });
+        } catch (error) {
+            return;
+        }
+
     });
 };
 
@@ -46,7 +62,10 @@ const areKeyboardsEqual = (keyboard1: any, keyboard2: any): boolean => {
 
 const setHandlers = (bot: Bot) => {
     bot.command("start", (ctx) => {
+       ctx.reply("George's bot start!")
+    });
+    bot.command("show_stocks", (ctx) => {
         const { message, menu } = buildStaticStockList();
         ctx.reply(message, { parse_mode: "HTML", reply_markup: menu });
-    });
+    })
 };
